@@ -1,0 +1,30 @@
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 64px - 64px);
+    /* TopBar (64) + Footer (64) */
+    overflow: hidden;
+}
+
+.workspace {
+    flex: 1;
+    /* Represents the 70% roughly, but flex:1 fills available space */
+    width: 70%;
+    /* Explicitly setting width preference */
+    padding: var(--space-4);
+    overflow-y: auto;
+    background-color: var(--color-bg);
+}
+
+.workspace-content {
+    max-width: 1000px;
+    /* Generous width but contained */
+    margin: 0 auto;
+}

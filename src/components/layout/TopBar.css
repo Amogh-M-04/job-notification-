@@ -1,0 +1,34 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 var(--space-4);
+    background-color: var(--color-bg);
+    /* Match background for seamless look, or surface */
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topbar-left {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+.topbar-center {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: 500;
+    font-family: var(--font-sans);
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}

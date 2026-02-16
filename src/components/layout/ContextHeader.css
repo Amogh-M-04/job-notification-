@@ -1,0 +1,22 @@
+.context-header {
+    padding: var(--space-4) 0 var(--space-4);
+    /* Removed horizontal padding as it's defined in workspace-content usually, but kept vertical */
+    background-color: transparent;
+    margin-bottom: var(--space-3);
+}
+
+.context-headline {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+}
+
+.context-subtext {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+}
