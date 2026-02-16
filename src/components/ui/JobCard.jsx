@@ -1,7 +1,7 @@
 import { MapPin, Briefcase, Clock, Bookmark, ExternalLink } from 'lucide-react';
 import './JobCard.css';
 
-const JobCard = ({ job, isSaved, onSave, onView, matchScore }) => {
+const JobCard = ({ job, isSaved, onSave, onView, matchScore, status, onStatusChange }) => {
     const getScoreColor = (score) => {
         if (score >= 80) return 'score-green';
         if (score >= 60) return 'score-amber';
@@ -9,8 +9,17 @@ const JobCard = ({ job, isSaved, onSave, onView, matchScore }) => {
         return 'score-grey';
     };
 
+    const getStatusColor = (s) => {
+        switch (s) {
+            case 'Applied': return 'status-blue';
+            case 'Rejected': return 'status-red';
+            case 'Selected': return 'status-green';
+            default: return 'status-neutral';
+        }
+    };
+
     return (
-        <div className="job-card">
+        <div className={`job-card ${status ? 'has-status ' + getStatusColor(status) : ''}`}>
             <div className="job-header">
                 <div>
                     <h3 className="job-title">{job.title}</h3>
@@ -41,6 +50,20 @@ const JobCard = ({ job, isSaved, onSave, onView, matchScore }) => {
             <div className="job-badges">
                 <span className="badge salary-badge">{job.salaryRange}</span>
                 <span className="badge source-badge">{job.source}</span>
+            </div>
+
+            <div className="status-section">
+                <select
+                    className={`status-select ${getStatusColor(status || 'Not Applied')}`}
+                    value={status || 'Not Applied'}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(e) => onStatusChange(job.id, e.target.value)}
+                >
+                    <option value="Not Applied">Not Applied</option>
+                    <option value="Applied">Applied</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Selected">Selected</option>
+                </select>
             </div>
 
             <div className="job-actions">

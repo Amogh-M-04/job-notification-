@@ -73,6 +73,16 @@ const FilterBar = ({ filters, setFilters, showMatchesOnly, setShowMatchesOnly, s
                     </select>
                 </div>
 
+                <div className="filter-group">
+                    <select name="status" value={filters.status} onChange={handleChange} className="filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="Not Applied">Not Applied</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Selected">Selected</option>
+                    </select>
+                </div>
+
                 <div className="filter-group mobile-hide">
                     <select name="source" value={filters.source} onChange={handleChange} className="filter-select">
                         <option value="">All Sources</option>

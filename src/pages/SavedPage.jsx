@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { JOBS } from '../data/jobs';
 import JobCard from '../components/ui/JobCard';
 import JobModal from '../components/ui/JobModal';
+import { useJobStatus } from '../hooks/useJobStatus';
 import './DashboardPage.css'; // Reuse dashboard styles
 import './EmptyState.css';
 
@@ -18,6 +19,11 @@ const SavedPage = () => {
     });
 
     const [selectedJob, setSelectedJob] = useState(null);
+    const { getStatus, updateStatus } = useJobStatus();
+
+    const handleStatusChange = (jobId, newStatus) => {
+        updateStatus(jobId, newStatus);
+    };
 
     const handleUnsave = (id) => {
         const currentSavedIds = JSON.parse(localStorage.getItem('savedJobs') || '[]');
@@ -46,6 +52,8 @@ const SavedPage = () => {
                                 isSaved={true}
                                 onSave={handleUnsave}
                                 onView={setSelectedJob}
+                                status={getStatus(job.id)}
+                                onStatusChange={handleStatusChange}
                             />
                         ))}
                     </div>

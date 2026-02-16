@@ -4,6 +4,7 @@ import JobCard from '../components/ui/JobCard';
 import JobModal from '../components/ui/JobModal';
 import FilterBar from '../components/ui/FilterBar';
 import { calculateMatchScore, parseSalary } from '../utils/scoring';
+import { useJobStatus } from '../hooks/useJobStatus';
 import './DashboardPage.css';
 import './EmptyState.css';
 
@@ -35,16 +36,29 @@ const DashboardPage = () => {
         location: '',
         mode: '',
         experience: '',
-        source: ''
+        source: '',
+        status: ''
     });
     const [showMatchesOnly, setShowMatchesOnly] = useState(false);
     const [sortBy, setSortBy] = useState('latest');
+
+    const { jobStatus, updateStatus } = useJobStatus();
+    const [toast, setToast] = useState(null);
+
+    const handleStatusChange = (jobId, newStatus) => {
+        updateStatus(jobId, newStatus);
+
+        // Show Toast
+        setToast(`Status updated: ${newStatus}`);
+        setTimeout(() => setToast(null), 3000);
+    };
 
     // Derived state for jobs using useMemo
     const jobs = useMemo(() => {
         let result = JOBS.map(job => ({
             ...job,
-            matchResult: calculateMatchScore(job, preferences)
+            matchResult: calculateMatchScore(job, preferences),
+            status: jobStatus[job.id]?.status || 'Not Applied'
         }));
 
         // 1. Filter
@@ -77,6 +91,10 @@ const DashboardPage = () => {
             result = result.filter(job => job.source === filters.source);
         }
 
+        if (filters.status) {
+            result = result.filter(job => job.status === filters.status);
+        }
+
         // 2. Sort
         result.sort((a, b) => {
             if (sortBy === 'score') {
@@ -89,7 +107,7 @@ const DashboardPage = () => {
         });
 
         return result;
-    }, [filters, showMatchesOnly, sortBy, preferences]);
+    }, [filters, showMatchesOnly, sortBy, preferences, jobStatus]);
 
     const handleSave = (id) => {
         let newSaved;
@@ -104,6 +122,7 @@ const DashboardPage = () => {
 
     return (
         <div className="dashboard-page">
+            {toast && <div className="toast-notification">{toast}</div>}
             <div className="dashboard-container">
                 <div className="dashboard-header">
                     <h1>Find Your Next Role</h1>
@@ -134,6 +153,8 @@ const DashboardPage = () => {
                                 onSave={handleSave}
                                 onView={setSelectedJob}
                                 matchScore={preferences ? job.matchResult.score : undefined}
+                                status={job.status}
+                                onStatusChange={handleStatusChange}
                             />
                         ))}
                     </div>

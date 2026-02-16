@@ -23,6 +23,24 @@ const DigestPage = () => {
         return date.toISOString().split('T')[0];
     });
 
+    // Load status history
+    const [statusHistory] = useState(() => {
+        try {
+            const statusData = JSON.parse(localStorage.getItem('jobTrackerStatus') || '{}');
+            return Object.entries(statusData)
+                .map(([jobId, data]) => {
+                    const job = JOBS.find(j => j.id === parseInt(jobId));
+                    return job ? { ...job, status: data.status, date: data.date } : null;
+                })
+                .filter(item => item && item.date)
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    });
+
     const [digest, setDigest] = useState(() => {
         try {
             // Re-derive today here since we can't access state in another state initializer easily without extraction
@@ -96,9 +114,39 @@ const DigestPage = () => {
         );
     }
 
+
+
+    const formatDate = (isoString) => {
+        if (!isoString) return '';
+        return new Date(isoString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
+
     return (
         <div className="digest-page">
             <div className="digest-container">
+                {/* Status Updates Section */}
+                {statusHistory.length > 0 && (
+                    <div className="status-history-section">
+                        <h3>Recent Status Updates</h3>
+                        <div className="status-list">
+                            {statusHistory.map(item => (
+                                <div key={item.id} className="status-item">
+                                    <div className="status-info">
+                                        <span className="status-job">{item.title}</span>
+                                        <span className="status-company">{item.company}</span>
+                                    </div>
+                                    <div className="status-meta">
+                                        <span className={`status-tag status-${item.status.toLowerCase().replace(' ', '-')}`}>
+                                            {item.status}
+                                        </span>
+                                        <span className="status-date">{formatDate(item.date)}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {!digest ? (
                     <div className="digest-start">
                         <h2>Daily 9AM Digest</h2>
