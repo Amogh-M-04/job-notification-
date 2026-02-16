@@ -1,6 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
-import PlaceholderPage from './pages/PlaceholderPage';
+import LandingPage from './pages/LandingPage';
+import SettingsPage from './pages/SettingsPage';
+import DashboardPage from './pages/DashboardPage';
+import SavedPage from './pages/SavedPage';
+import DigestPage from './pages/DigestPage';
+import ProofPage from './pages/ProofPage';
 import './App.css';
 
 function App() {
@@ -8,12 +13,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<PlaceholderPage title="Dashboard" />} /> {/* Default to Dashboard or Home */}
-          <Route path="dashboard" element={<PlaceholderPage title="Dashboard" />} />
-          <Route path="saved" element={<PlaceholderPage title="Saved Jobs" />} />
-          <Route path="digest" element={<PlaceholderPage title="Daily Digest" />} />
-          <Route path="settings" element={<PlaceholderPage title="Settings" />} />
-          <Route path="proof" element={<PlaceholderPage title="Proof of Work" />} />
+          <Route index element={<LandingPage />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="saved" element={<SavedPage />} />
+          <Route path="digest" element={<DigestPage />} />
+          <Route path="proof" element={<ProofPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

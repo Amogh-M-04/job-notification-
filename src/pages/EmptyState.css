@@ -1,0 +1,32 @@
+.empty-state-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
+    padding: var(--space-4);
+    background-color: var(--color-bg);
+}
+
+.empty-state-container {
+    max-width: 500px;
+    padding: var(--space-5);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-muted);
+}
+
+.empty-state-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+}
+
+.empty-state-message {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
