@@ -1,0 +1,44 @@
+.dashboard-page {
+    padding: var(--space-4);
+    background-color: var(--color-bg);
+    min-height: 100%;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: var(--space-4);
+}
+
+.dashboard-header h1 {
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+}
+
+.dashboard-header p {
+    font-family: var(--font-sans);
+    color: var(--color-text-muted);
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-3);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
