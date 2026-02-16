@@ -6,6 +6,8 @@ import DashboardPage from './pages/DashboardPage';
 import SavedPage from './pages/SavedPage';
 import DigestPage from './pages/DigestPage';
 import ProofPage from './pages/ProofPage';
+import TestPage from './pages/TestPage';
+import ShipPage from './pages/ShipPage';
 import './App.css';
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <Route path="saved" element={<SavedPage />} />
           <Route path="digest" element={<DigestPage />} />
           <Route path="proof" element={<ProofPage />} />
+          <Route path="jt/07-test" element={<TestPage />} />
+          <Route path="jt/08-ship" element={<ShipPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
