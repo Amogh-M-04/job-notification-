@@ -1,0 +1,23 @@
+.placeholder-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    /* Takes up most of the screen */
+    text-align: center;
+    padding: var(--space-4);
+}
+
+.placeholder-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+}
+
+.placeholder-subtitle {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+}
