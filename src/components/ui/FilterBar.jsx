@@ -1,7 +1,7 @@
-import { Search, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
 import './FilterBar.css';
 
-const FilterBar = ({ filters, setFilters }) => {
+const FilterBar = ({ filters, setFilters, showMatchesOnly, setShowMatchesOnly, sortBy, setSortBy }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFilters(prev => ({ ...prev, [name]: value }));
@@ -22,6 +22,25 @@ const FilterBar = ({ filters, setFilters }) => {
             </div>
 
             <div className="filters-container">
+                <div className="filter-group">
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="filter-select highlight-select">
+                        <option value="latest">Sort: Latest</option>
+                        <option value="score">Sort: Match Score</option>
+                        <option value="salary">Sort: Salary</option>
+                    </select>
+                </div>
+
+                <div className="filter-group toggle-group">
+                    <label className="toggle-label">
+                        <input
+                            type="checkbox"
+                            checked={showMatchesOnly}
+                            onChange={(e) => setShowMatchesOnly(e.target.checked)}
+                        />
+                        <span>Top Matches</span>
+                    </label>
+                </div>
+
                 <div className="filter-group">
                     <select name="location" value={filters.location} onChange={handleChange} className="filter-select">
                         <option value="">All Locations</option>

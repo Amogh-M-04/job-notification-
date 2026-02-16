@@ -1,7 +1,14 @@
 import { MapPin, Briefcase, Clock, Bookmark, ExternalLink } from 'lucide-react';
 import './JobCard.css';
 
-const JobCard = ({ job, isSaved, onSave, onView }) => {
+const JobCard = ({ job, isSaved, onSave, onView, matchScore }) => {
+    const getScoreColor = (score) => {
+        if (score >= 80) return 'score-green';
+        if (score >= 60) return 'score-amber';
+        if (score >= 40) return 'score-neutral';
+        return 'score-grey';
+    };
+
     return (
         <div className="job-card">
             <div className="job-header">
@@ -9,13 +16,20 @@ const JobCard = ({ job, isSaved, onSave, onView }) => {
                     <h3 className="job-title">{job.title}</h3>
                     <p className="job-company">{job.company}</p>
                 </div>
-                <button
-                    className={`save-btn ${isSaved ? 'saved' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); onSave(job.id); }}
-                    title={isSaved ? "Unsave" : "Save"}
-                >
-                    <Bookmark size={20} fill={isSaved ? "currentColor" : "none"} />
-                </button>
+                <div className="header-actions">
+                    {matchScore !== undefined && (
+                        <div className={`match-badge ${getScoreColor(matchScore)}`}>
+                            {matchScore}% Match
+                        </div>
+                    )}
+                    <button
+                        className={`save-btn ${isSaved ? 'saved' : ''}`}
+                        onClick={(e) => { e.stopPropagation(); onSave(job.id); }}
+                        title={isSaved ? "Unsave" : "Save"}
+                    >
+                        <Bookmark size={20} fill={isSaved ? "currentColor" : "none"} />
+                    </button>
+                </div>
             </div>
 
             <div className="job-meta">

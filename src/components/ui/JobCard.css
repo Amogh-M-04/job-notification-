@@ -21,6 +21,44 @@
     align-items: flex-start;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.match-badge {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+}
+
+.score-green {
+    background-color: #e6f4ea;
+    color: #1e8e3e;
+    border: 1px solid #1e8e3e;
+}
+
+.score-amber {
+    background-color: #fef7e0;
+    color: #f9ab00;
+    border: 1px solid #f9ab00;
+}
+
+.score-neutral {
+    background-color: #f1f3f4;
+    color: #5f6368;
+    border: 1px solid #5f6368;
+}
+
+.score-grey {
+    background-color: #f8f9fa;
+    color: #9aa0a6;
+    border: 1px solid #dadce0;
+}
+
 .job-title {
     font-family: var(--font-serif);
     font-size: var(--text-lg);

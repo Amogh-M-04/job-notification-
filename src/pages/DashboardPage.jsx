@@ -3,6 +3,7 @@ import { JOBS } from '../data/jobs';
 import JobCard from '../components/ui/JobCard';
 import JobModal from '../components/ui/JobModal';
 import FilterBar from '../components/ui/FilterBar';
+import { calculateMatchScore, parseSalary } from '../utils/scoring';
 import './DashboardPage.css';
 import './EmptyState.css';
 
@@ -17,6 +18,17 @@ const DashboardPage = () => {
         }
     });
 
+    // Preferences - Lazy init
+    const [preferences] = useState(() => {
+        try {
+            const saved = localStorage.getItem('jobTrackerPreferences');
+            return saved ? JSON.parse(saved) : null;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    });
+
     const [selectedJob, setSelectedJob] = useState(null);
     const [filters, setFilters] = useState({
         search: '',
@@ -25,10 +37,20 @@ const DashboardPage = () => {
         experience: '',
         source: ''
     });
+    const [showMatchesOnly, setShowMatchesOnly] = useState(false);
+    const [sortBy, setSortBy] = useState('latest');
 
     // Derived state for jobs using useMemo
     const jobs = useMemo(() => {
-        let result = JOBS;
+        let result = JOBS.map(job => ({
+            ...job,
+            matchResult: calculateMatchScore(job, preferences)
+        }));
+
+        // 1. Filter
+        if (showMatchesOnly && preferences) {
+            result = result.filter(job => job.matchResult.score >= (preferences.minMatchScore || 40));
+        }
 
         if (filters.search) {
             const query = filters.search.toLowerCase();
@@ -55,8 +77,19 @@ const DashboardPage = () => {
             result = result.filter(job => job.source === filters.source);
         }
 
+        // 2. Sort
+        result.sort((a, b) => {
+            if (sortBy === 'score') {
+                return b.matchResult.score - a.matchResult.score;
+            } else if (sortBy === 'salary') {
+                return parseSalary(b.salaryRange) - parseSalary(a.salaryRange);
+            } else { // latest
+                return a.postedDaysAgo - b.postedDaysAgo;
+            }
+        });
+
         return result;
-    }, [filters]);
+    }, [filters, showMatchesOnly, sortBy, preferences]);
 
     const handleSave = (id) => {
         let newSaved;
@@ -75,9 +108,21 @@ const DashboardPage = () => {
                 <div className="dashboard-header">
                     <h1>Find Your Next Role</h1>
                     <p>Showing {jobs.length} opportunities matching your criteria</p>
+                    {!preferences && (
+                        <div className="prefs-banner">
+                            <p>Set your preferences in Settings for intelligent matching scores.</p>
+                        </div>
+                    )}
                 </div>
 
-                <FilterBar filters={filters} setFilters={setFilters} />
+                <FilterBar
+                    filters={filters}
+                    setFilters={setFilters}
+                    showMatchesOnly={showMatchesOnly}
+                    setShowMatchesOnly={setShowMatchesOnly}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
+                />
 
                 {jobs.length > 0 ? (
                     <div className="jobs-grid">
@@ -88,13 +133,18 @@ const DashboardPage = () => {
                                 isSaved={savedIds.includes(job.id)}
                                 onSave={handleSave}
                                 onView={setSelectedJob}
+                                matchScore={preferences ? job.matchResult.score : undefined}
                             />
                         ))}
                     </div>
                 ) : (
                     <div className="empty-state-container">
                         <h2 className="empty-state-title">No jobs found</h2>
-                        <p className="empty-state-message">Try adjusting your filters to see more results.</p>
+                        <p className="empty-state-message">
+                            {showMatchesOnly
+                                ? "No jobs meet your minimum match score. Try lowering the threshold in Settings."
+                                : "Try adjusting your filters to see more results."}
+                        </p>
                     </div>
                 )}
             </div>

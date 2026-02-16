@@ -42,3 +42,14 @@
         transform: translateY(0);
     }
 }
+
+.prefs-banner {
+    background-color: #fef7e0;
+    border: 1px solid #f9ab00;
+    color: #e37400;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    margin-top: 8px;
+    font-size: var(--text-sm);
+    display: inline-block;
+}

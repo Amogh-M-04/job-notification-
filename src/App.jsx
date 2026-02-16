@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// App initialized
 import MainLayout from './components/layout/MainLayout';
 import LandingPage from './pages/LandingPage';
 import SettingsPage from './pages/SettingsPage';
