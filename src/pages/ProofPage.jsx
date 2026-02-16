@@ -147,7 +147,10 @@ Core Features:
                 </div>
 
                 <div className="validation-status" style={{ marginTop: '2rem', padding: '1rem', background: 'var(--color-bg-subtle)', borderRadius: '8px' }}>
-                    <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Shipping Requirements:</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <h3 style={{ fontSize: '1rem', margin: 0 }}>Shipping Requirements:</h3>
+                        <a href="/jt/07-test" className="nav-link" style={{ fontSize: '0.9rem', color: 'var(--color-primary)' }}>Open Test Checklist</a>
+                    </div>
                     <ul style={{ listStyle: 'none', padding: 0, fontSize: '0.9rem' }}>
                         <li style={{ color: testPassed ? 'var(--color-success)' : 'var(--color-error)' }}>
                             {testPassed ? '✓' : '✗'} Test Checklist (10/10 required)
