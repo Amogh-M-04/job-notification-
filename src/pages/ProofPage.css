@@ -1,0 +1,156 @@
+.proof-page {
+    padding: var(--space-8);
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: var(--font-sans);
+    color: var(--color-text);
+}
+
+.proof-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+.proof-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.pending {
+    background: var(--color-bg-subtle);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+}
+
+.status-badge.shipped {
+    background: var(--color-success);
+    color: white;
+    border: 1px solid var(--color-success);
+}
+
+.proof-section {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+    box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-bg);
+    padding-bottom: var(--space-2);
+}
+
+.step-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-4);
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.step-item.completed {
+    color: var(--color-success);
+    font-weight: 500;
+}
+
+.step-icon {
+    margin-right: var(--space-2);
+}
+
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-weight: 500;
+    font-size: var(--text-sm);
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.form-input.valid {
+    border-color: var(--color-success);
+}
+
+.submission-actions {
+    text-align: center;
+    margin-top: var(--space-6);
+}
+
+.copy-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: var(--text-md);
+}
+
+.copy-btn:hover {
+    background: var(--color-primary-hover);
+}
+
+.copy-btn:disabled {
+    background: var(--color-border);
+    cursor: not-allowed;
+}
+
+.success-message {
+    margin-top: var(--space-4);
+    color: var(--color-success);
+    font-weight: 500;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
